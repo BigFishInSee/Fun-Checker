@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Focus and Visibility Counter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    .counter {
+      font-size: 24px;
+      margin: 20px 0;
+    }
+  </style>
+  <script>
+    let focusCount = 0;
+    let blurCount = 0;
+    let visibleCount = 0;
+    let hiddenCount = 0;
+
+    function updateCounters() {
+      document.getElementById("focusCount").innerText = focusCount;
+      document.getElementById("blurCount").innerText = blurCount;
+      document.getElementById("visibleCount").innerText = visibleCount;
+      document.getElementById("hiddenCount").innerText = hiddenCount;
+    }
+
+    window.addEventListener("focus", () => {
+      focusCount++;
+      updateCounters();
+    });
+
+    window.addEventListener("blur", () => {
+      blurCount++;
+      updateCounters();
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") {
+        visibleCount++;
+      } else if (document.visibilityState === "hidden") {
+        hiddenCount++;
+      }
+      updateCounters();
+    });
+  </script>
+</head>
+<body>
+  <h1>Focus and Visibility Counter</h1>
+  <div class="counter">Focus Events: <span id="focusCount">0</span></div>
+  <div class="counter">Blur Events: <span id="blurCount">0</span></div>
+  <div class="counter">Page Visible: <span id="visibleCount">0</span></div>
+  <div class="counter">Page Hidden: <span id="hiddenCount">0</span></div>
+  <p>Switch tabs, minimize the browser, or open other windows to see the counters update.</p>
+</body>
+</html>
